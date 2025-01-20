@@ -5,6 +5,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  address: String,
+  city: String,
+  country: String,
   superTokenId: String,
   password: String,
   cart: [

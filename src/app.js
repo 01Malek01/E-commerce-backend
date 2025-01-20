@@ -11,6 +11,9 @@ import EmailPassword from "supertokens-node/recipe/emailpassword";
 import { errorHandler, middleware } from "supertokens-node/framework/express";
 import User from "./models/UserModel.js";
 import productRouter from "./routes/ProductRoutes.js";
+import globalErrorHandler from "./middleware/GlobalErrorHandler.js";
+import orderRouter from "./routes/OrderRoutes.js";
+import userRoutes from "./routes/UserRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -50,7 +53,6 @@ supertokens.init({
               if (response.status === "OK") {
                 // If it was successful, we get the user from the response object
                 let user = response.user;
-                console.log("after sign up", user);
                 const newUser = await User.create({
                   email: user.emails[0],
                   superTokenId: user.id,
@@ -79,7 +81,6 @@ supertokens.init({
               if (response.status === "OK") {
                 // If it was successful, we get the user from the response object
                 let user = response.user;
-                console.log("after sign in", user);
                 /**
                  *
                  * response.user contains the following info:
@@ -120,12 +121,11 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 // Routes
-app.use("/products", productRouter);
+app.use("/api/products", productRouter);
+app.use("/api/orders", orderRouter);
+app.use("/api/user", userRoutes);
 app.use(errorHandler());
+app.use(globalErrorHandler);
 
 export default app;
