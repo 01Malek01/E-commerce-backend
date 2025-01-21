@@ -104,7 +104,6 @@ supertokens.init({
     }),
     Session.init({
       cookieSecure: process.env.NODE_ENV === "production", // true only in production
-      cookieSameSite: "lax",
     }), // initializes session features
   ],
 });
