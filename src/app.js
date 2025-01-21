@@ -34,8 +34,8 @@ supertokens.init({
   appInfo: {
     // learn more about this on https://supertokens.com/docs/session/appinfo
     appName: "E-Commerce",
-    apiDomain: "http://localhost:8000",
-    websiteDomain: "http://localhost:5173",
+    apiDomain: process.env.BACKEND_URL,
+    websiteDomain: process.env.FRONTEND_URL,
     apiBasePath: "/auth",
     websiteBasePath: "/auth",
   },
