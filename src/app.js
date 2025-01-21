@@ -102,7 +102,10 @@ supertokens.init({
         },
       },
     }),
-    Session.init(), // initializes session features
+    Session.init({
+      cookieSecure: process.env.NODE_ENV === "production", // true only in production
+      cookieSameSite: "lax",
+    }), // initializes session features
   ],
 });
 
@@ -110,7 +113,7 @@ app.use(
   cors({
     origin: process.env.FRONTEND_URL,
     allowedHeaders: ["content-type", ...supertokens.getAllCORSHeaders()],
-    credentials: true,
+    credentials: true, // Enable cookies for cross-domain requests
   })
 );
 
