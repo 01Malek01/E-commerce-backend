@@ -5,6 +5,7 @@ const protect = async (req, res, next) => {
   try {
     const sessionId = req.session.getUserId();
     const user = await User.findOne({ superTokenId: sessionId });
+    console.log(user);
     if (!user) {
       req.session.destroy();
       await Session.revokeSession(req.session.getHandle());
